@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
@@ -33,4 +33,9 @@ def signup(request):
 def tasks (request):
     return render(request,'tasks.html')    
 
-    
+def signout(request):
+    logout(request)   
+    return redirect('home')
+
+def signin(request):
+    return render(request, 'signin.html')
