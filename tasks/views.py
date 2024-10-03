@@ -35,9 +35,17 @@ def tasks (request):
     return render(request,'tasks.html')    
 
 def create_task(request):
-    return render(request, 'create_task.html', {
+
+    if request.method == 'GET':
+        return render(request, 'create_task.html', {
         'form': TaskForm
     })
+    else:
+        print(request.POST)
+        return render(request, 'create_task.html', {
+        'form': TaskForm
+    })
+
 
 def signout(request):
     logout(request)   
