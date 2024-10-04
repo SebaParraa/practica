@@ -65,7 +65,7 @@ def signout(request):
 def signin(request):
     if request.method == 'GET':
         return render(request, 'signin.html', { 
-        'form': AuthenticationForm
+            'form': AuthenticationForm
     })
     else:
         user = authenticate(request, username= request.POST['username'], password= request.POST['password'])
@@ -78,7 +78,3 @@ def signin(request):
         else:
             login(request,user)
             return redirect('tasks')
-
-        return render(request, 'signin.html', { 
-        'form': AuthenticationForm
-    }) 
