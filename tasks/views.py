@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth import login, logout, authenticate
 from .forms import  TaskForm
+from .models import Task
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
@@ -32,7 +33,10 @@ def signup(request):
                     'error': 'Password do not match' 
         })   
 def tasks (request):
-    return render(request,'tasks.html')    
+    task = Task.objects.all()
+
+
+    return render(request,'tasks.html', {'tasks':tasks})    
 
 def create_task(request):
 
@@ -41,9 +45,16 @@ def create_task(request):
         'form': TaskForm
     })
     else:
-        print(request.POST)
-        return render(request, 'create_task.html', {
-        'form': TaskForm
+        try:
+            form = TaskForm(request.POST)
+            new_task = form.save(commit=False)
+            new_task.user = request.user
+            new_task.save()
+            return redirect('tasks')
+        except ValueError:
+            return render(request, 'create_task.html', {     
+                'form': TaskForm,
+                'error': 'Please provide valida data'
     })
 
 
@@ -70,5 +81,4 @@ def signin(request):
 
         return render(request, 'signin.html', { 
         'form': AuthenticationForm
-    })
-
+    }) 
