@@ -33,10 +33,10 @@ def signup(request):
                     'error': 'Password do not match' 
         })   
 def tasks (request):
-    tasks = Task.objects.all()
+    tasks = Task.objects.filter(user=request.user, datecompleted__isnull=True)
 
 
-    return render(request,'tasks.html', {'tasks':tasks})    
+    return render(request,'tasks.html', {'tasks': tasks})    
 
 def create_task(request):
 
