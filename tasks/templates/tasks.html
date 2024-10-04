@@ -3,9 +3,12 @@
 <h1>Tasks</h1>
 
 <ul>
+
     {$ for task in tasks $}
-    <li>{{task.title}}</li>
-    {% enfor %}
-</ul>
+    <li>
+        {{task.title}}
+    </li>
+    {$ endfor $}
+</ul> 
 
 {% endblock %}
