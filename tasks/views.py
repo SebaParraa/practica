@@ -33,7 +33,7 @@ def signup(request):
                     'error': 'Password do not match' 
         })   
 def tasks (request):
-    task = Task.objects.all()
+    tasks = Task.objects.all()
 
 
     return render(request,'tasks.html', {'tasks':tasks})    
